@@ -6,38 +6,49 @@
     <title>Document</title>
 </head>
 <body>
-     <!-- Rock Paper Scissors -->
-     <p>Rock Paper Scissors</p>
-     <button onclick="
+    <!-- Rock Paper Scissors -->
+    <p>Rock Paper Scissors</p>
+    <button onclick="
 
         playGame('rock');
 
-     ">Rock</button>
+    ">Rock</button>
 
-     <button onclick="
+    <button onclick="
 
         playGame('paper');
 
-     " >Paper</button>
+    " >Paper</button>
 
-     <button onclick="
+    <button onclick="
 
         playGame('scissors');
 
-     ">Scissors</button>
+    ">Scissors</button>
+
+    <p class="js-result"></p>
+     
+    <p class="js-moves"></p>
+
+    <p class="js-score"></p>
+
      <button onclick="
         score.wins = 0;
         score.losses = 0;
         score.ties = 0;
         localStorage.removeItem('score');
+        updateScoreElement();
      ">Reset Score</button>
 
-     <script>
+    <script>
         let score = JSON.parse(localStorage.getItem('score')) || {
             wins: 0,
             losses: 0,
             ties: 0
             };
+
+
+        updateScoreElement(); 
 
         /* 
         ---------------made use of or operator instead of this code----------------   
@@ -94,8 +105,16 @@
 
             localStorage.setItem('score', JSON.stringify(score));
 
-            alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}
-Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`);  
+            updateScoreElement();
+
+            document.querySelector('.js-result').innerHTML = result;
+
+            document.querySelector('.js-moves').innerHTML = `You ${playerMove} - ${computerMove} Computer`;
+        }
+
+        function updateScoreElement() {
+            document.querySelector('.js-score')
+            .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`; 
         }
 
 
