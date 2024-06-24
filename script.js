@@ -17,6 +17,24 @@ if (!score) {
     };
 }
 */
+let isAutoPlaying = false;
+let intervalId;
+
+function autoPlay() {
+
+    if(!isAutoPlaying) {
+        intervalId = setInterval(function() {
+            const playerMove = pickComputerMove();
+            playGame(playerMove);
+        }, 1000);
+        isAutoPlaying = true;
+        document.querySelector('.js-autoplay-btn').innerHTML = 'Stop Play'
+    }else{
+        clearInterval(intervalId);
+        isAutoPlaying = false;
+        document.querySelector('.js-autoplay-btn').innerHTML = 'Auto Play'
+    }
+}
 
 function playGame(playerMove) {
     const computerMove = pickComputerMove();
